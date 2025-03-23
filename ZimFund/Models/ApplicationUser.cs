@@ -8,6 +8,7 @@ namespace ZimFund.Models
         [Required]
         [Display(Name = "Nome completo")]
         public string FullName { get; set; } = "";
+        public string Address { get; set; } = "";
         public bool IsDeleted { get; set; } = false;
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
         public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
