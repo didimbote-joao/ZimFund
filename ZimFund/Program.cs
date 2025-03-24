@@ -14,7 +14,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlSer
     ));
 
 // Adicionar Scaffold do Identity
-builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
+builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = false)
     .AddEntityFrameworkStores<ApplicationDbContext>();
 
 

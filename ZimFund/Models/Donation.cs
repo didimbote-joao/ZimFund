@@ -7,8 +7,8 @@ namespace ZimFund.Models
         public int Id { get; set; }
         [Precision(18, 2)]
         public decimal Amount { get; set; }
-        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
-        public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
+        public DateTime CreatedAt { get; set; } 
+        public DateTime UpdatedAt { get; set; }
 
         public string UserId { get; set; }
         public ApplicationUser User { get; set; }
