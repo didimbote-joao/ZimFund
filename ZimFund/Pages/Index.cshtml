@@ -4,7 +4,48 @@
     ViewData["Title"] = "Home page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<!-- Seção Hero -->
+<header class="hero-section text-white text-center">
+    <div class="container">
+        <h1>Você ajuda as pessoas? Se torne um voluntário</h1>
+        <p>Junte-se à nossa causa e faça a diferença hoje.</p>
+        <button class="btn btn-warning">Começar</button>
+        <button class="btn btn-outline-light">Mais detalhes</button>
+    </div>
+</header>
+
+<!-- Seção de Categorias -->
+<section class="features container py-5">
+    <h2 class="text-center">Categorias</h2>
+    <div class="row text-center">
+        @foreach (var category in Model.Categories)
+        {
+            <div class="col-md-3 feature-box">
+                <h3>@category.Name</h3>
+            </div>
+        }
+    </div>
+</section>
+
+<!-- Seção de Campanhas -->
+<section class="campaigns container py-5">
+    <h2 class="text-center">Campanhas de Arrecadação</h2>
+    <div class="row">
+        @foreach (var project in Model.Projects)
+        {
+            var percentage = project.GoalAmount > 0 ? (project.CollectedAmount / project.GoalAmount) * 100 : 0;
+            <div class="col-md-4">
+                <div class="campaign-card p-3 shadow rounded">
+                    <img src="@project.Image" class="img-fluid rounded" alt="@project.Title">
+                    <h3>@project.Title</h3>
+                    <p>@project.Description</p>
+                    <div class="progress">
+                        <div class="progress-bar bg-success" role="progressbar" style="width: @percentage%" aria-valuenow="@percentage" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                    <p>@project.CollectedAmount arrecadados de @project.GoalAmount</p>
+                    <p><strong>@project.Donations.Count</strong> doações</p>
+                </div>
+            </div>
+        }
+    </div>
+</section>

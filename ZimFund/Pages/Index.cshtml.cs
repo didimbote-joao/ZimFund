@@ -1,20 +1,27 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
+using ZimFund.Data;
+using ZimFund.Models;
 
 namespace ZimFund.Pages
 {
     public class IndexModel : PageModel
     {
-        private readonly ILogger<IndexModel> _logger;
+        private readonly ApplicationDbContext _context;
 
-        public IndexModel(ILogger<IndexModel> logger)
+        public List<Category> Categories { get; set; }
+        public List<Project> Projects { get; set; }
+
+        public IndexModel(ApplicationDbContext context)
         {
-            _logger = logger;
+            _context = context;
         }
 
-        public void OnGet()
+        public async Task OnGetAsync()
         {
-
+            Categories = await _context.Categories.ToListAsync();
+            Projects = await _context.Projects.Include(p => p.Donations).ToListAsync();
         }
     }
 }
