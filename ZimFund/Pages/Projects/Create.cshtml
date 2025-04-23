@@ -1,0 +1,47 @@
+﻿@page
+@model ZimFund.Pages.Projects.CreateModel
+@{
+    ViewData["Title"] = "Criar Campanha";
+}
+
+<h2>Criar Nova Campanha</h2>
+
+<form method="post" enctype="multipart/form-data">
+    <div class="mb-3">
+        <label asp-for="Project.Title" class="form-label"></label>
+        <input asp-for="Project.Title" class="form-control" />
+        <span asp-validation-for="Project.Title" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Project.Description" class="form-label"></label>
+        <textarea asp-for="Project.Description" class="form-control"></textarea>
+        <span asp-validation-for="Project.Description" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Project.GoalAmount" class="form-label"></label>
+        <input asp-for="Project.GoalAmount" class="form-control" />
+        <span asp-validation-for="Project.GoalAmount" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Project.CategoryId" class="form-label">Categoria</label>
+        <select asp-for="Project.CategoryId" class="form-select" asp-items="Model.CategoryOptions">
+            <option value="">-- Selecione uma categoria --</option>
+        </select>
+        <span asp-validation-for="Project.CategoryId" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="ImageFile" class="form-label">Imagem</label>
+        <input asp-for="ImageFile" class="form-control" type="file" />
+    </div>
+
+    <button type="submit" class="btn btn-success">Criar</button>
+    <a asp-page="/Index" class="btn btn-secondary">Cancelar</a>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
