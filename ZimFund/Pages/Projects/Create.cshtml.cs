@@ -5,9 +5,11 @@ using Microsoft.EntityFrameworkCore;
 using ZimFund.Data;
 using ZimFund.Models;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ZimFund.Pages.Projects
 {
+    [Authorize] // contidiciona a pagina a apenas usuarios logados
     public class CreateModel : PageModel
     {
         private readonly ApplicationDbContext _context;
@@ -44,31 +46,42 @@ namespace ZimFund.Pages.Projects
             if (!ModelState.IsValid)
             {
                 await LoadCategoriesAsync();
+                //Verifica aonde esta o erro
+                foreach (var modelStateEntry in ModelState)
+                {
+                    foreach (var error in modelStateEntry.Value.Errors)
+                    {
+                        Console.WriteLine($"Erro no campo {modelStateEntry.Key}: {error.ErrorMessage}");
+                    }
+                }
+
                 return Page();
             }
 
-            var user = await _userManager.GetUserAsync(User);
-            Project.UserId = user.Id;
             Project.CreatedAt = DateTime.UtcNow;
             Project.UpdatedAt = DateTime.UtcNow;
-            Project.IsDeleted = false;
+
+            var user = await _userManager.GetUserAsync(User);
+            Project.UserId = user.Id;
+           
 
             if (ImageFile != null)
             {
                 var fileName = Guid.NewGuid() + Path.GetExtension(ImageFile.FileName);
-                var filePath = Path.Combine(_environment.WebRootPath, "uploads", fileName);
+                var filePath = Path.Combine(_environment.WebRootPath, "images", fileName);
 
                 using (var stream = new FileStream(filePath, FileMode.Create))
                 {
                     await ImageFile.CopyToAsync(stream);
                 }
 
-                Project.Image = "/uploads/" + fileName;
+                Project.Image = "/images/" + fileName;
             }
 
+            // Cria novo projecto
             _context.Projects.Add(Project);
             await _context.SaveChangesAsync();
-            return RedirectToPage("./Index");
+            return RedirectToPage("/Index");
         }
 
         private async Task LoadCategoriesAsync()

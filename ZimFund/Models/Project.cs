@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using Microsoft.EntityFrameworkCore;
 
 namespace ZimFund.Models
 {
@@ -15,12 +16,14 @@ namespace ZimFund.Models
         public bool IsCompleted { get; set; } = false;
         public string? Image { get; set; }
         public DateTime CreatedAt { get; set; }
-        public DateTime UpdatedAt { get; set; } 
-
+        public DateTime UpdatedAt { get; set; }
+        [ValidateNever]
         public string UserId { get; set; }
+        [ValidateNever]
         public ApplicationUser User { get; set; }
 
         public int CategoryId { get; set; }
+        [ValidateNever]
         public Category Category { get; set; }
 
         public ICollection<Comment> Comments { get; set; } = new List<Comment>();

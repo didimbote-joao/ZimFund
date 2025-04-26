@@ -2,8 +2,12 @@ using Microsoft.EntityFrameworkCore;
 using ZimFund.Data;
 using Microsoft.AspNetCore.Identity;
 using ZimFund.Models;
+using Microsoft.AspNetCore.Localization;
+using System.Globalization;
 
 var builder = WebApplication.CreateBuilder(args);
+
+
 
 // Add services to the container.
 builder.Services.AddRazorPages();
@@ -17,6 +21,11 @@ builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlSer
 builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = false)
     .AddEntityFrameworkStores<ApplicationDbContext>();
 
+
+// Forçar cultura PT-BR ou PT-PT
+var cultureInfo = new CultureInfo("pt-BR"); // ou "pt-BR"
+CultureInfo.DefaultThreadCurrentCulture = cultureInfo;
+CultureInfo.DefaultThreadCurrentUICulture = cultureInfo;
 
 var app = builder.Build();
 
@@ -39,3 +48,5 @@ app.UseAuthorization();
 app.MapRazorPages();
 
 app.Run();
+
+
