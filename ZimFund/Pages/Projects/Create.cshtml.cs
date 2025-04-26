@@ -63,11 +63,29 @@ namespace ZimFund.Pages.Projects
 
             var user = await _userManager.GetUserAsync(User);
             Project.UserId = user.Id;
-           
 
+            // Validacao da imagem
             if (ImageFile != null)
             {
-                var fileName = Guid.NewGuid() + Path.GetExtension(ImageFile.FileName);
+                var allowedExtensions = new[] { ".jpg", ".jpeg", ".png" };
+                var extension = Path.GetExtension(ImageFile.FileName).ToLowerInvariant();
+                const long maxFileSize = 2 * 1024 * 1024; // 2MB em bytes
+
+                if (!allowedExtensions.Contains(extension))
+                {
+                    ModelState.AddModelError("ImageFile", "Apenas arquivos .jpg, .jpeg ou .png são permitidos.");
+                    await LoadCategoriesAsync();
+                    return Page();
+                }
+
+                if (ImageFile.Length > maxFileSize)
+                {
+                    ModelState.AddModelError("ImageFile", "O tamanho máximo permitido para a imagem é 2MB.");
+                    await LoadCategoriesAsync();
+                    return Page();
+                }
+
+                var fileName = Guid.NewGuid() + extension;
                 var filePath = Path.Combine(_environment.WebRootPath, "images", fileName);
 
                 using (var stream = new FileStream(filePath, FileMode.Create))
@@ -77,6 +95,7 @@ namespace ZimFund.Pages.Projects
 
                 Project.Image = "/images/" + fileName;
             }
+
 
             // Cria novo projecto
             _context.Projects.Add(Project);
