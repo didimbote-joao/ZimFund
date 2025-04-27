@@ -144,7 +144,10 @@
         {
             <div class="col-md-4 mb-4">
                 <div class="campaign-card">
-                    <img src="@project.Image" alt="@project.Title" />
+                    <a asp-page="Projects/Select" asp-route-id="@project.Id">
+                        <img src="@project.Image" alt="@project.Title" />
+                    </a>
+                    
                     <div class="donations">@project.DonationCount doações</div>
                     <h3>@project.Title</h3>
                     <div class="progress-bar">

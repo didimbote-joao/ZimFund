@@ -1,0 +1,56 @@
+﻿@page
+@model ZimFund.Pages.Projects.SelectModel
+@{
+    ViewData["Title"] = "Detalhes da Campanha";
+}
+@{
+    var percentage = Model.Project.GoalAmount > 0 ? (Model.Project.CollectedAmount / Model.Project.GoalAmount) * 100 : 0;
+}
+
+
+
+<div class="container campaign-container">
+    <h2>@Model.Project.Title</h2>
+    <img src="@Model.Project.Image" alt="@Model.Project.Title" class="campaign-img">
+    <p><strong>Organizador:</strong> @Model.Project.User.FullName</p> <!-- ou outro campo do usuário -->
+    <p>@Model.Project.Description</p>
+    <div class="progress" style="height: 20px; background-color: #e9ecef;">
+        <div class="progress-bar bg-success" role="progressbar"
+             style="width: @percentage.ToString("0")%;"
+             aria-valuenow="@percentage.ToString("0")" aria-valuemin="0" aria-valuemax="100">
+            @percentage.ToString("0")%
+        </div>
+    </div>
+
+
+
+    
+    <p><strong>@Model.Project.CollectedAmount.ToString("C") arrecadados de @Model.Project.GoalAmount.ToString("C")</strong></p>
+
+    <button class="btn donate-btn w-100 my-2">Doar Agora</button>
+    <button class="btn btn-outline-secondary w-100">Compartilhar</button>
+
+    <div class="row mt-4">
+        <div class="col-md-8">
+            <h3>Comentários</h3>
+            <div class="list-group">
+                @foreach (var comment in Model.Project.Comments)
+                {
+                    <div class="list-group-item">
+                        <strong>@comment.User.FullName:</strong> @comment.Name
+                    </div>
+                }
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <h3>Últimos Doadores</h3>
+            <ul class="list-group">
+                @foreach (var donation in Model.Project.Donations.OrderByDescending(d => d.CreatedAt).Take(5))
+                {
+                    <li class="list-group-item">@donation.User.FullName - @donation.Amount.ToString("C")</li>
+                }
+            </ul>
+        </div>
+    </div>
+</div>
