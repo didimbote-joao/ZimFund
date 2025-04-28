@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Identity;
 using ZimFund.Models;
 using Microsoft.AspNetCore.Localization;
 using System.Globalization;
+using ZimFund.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,6 +21,10 @@ builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlSer
 // Adicionar Scaffold do Identity
 builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = false)
     .AddEntityFrameworkStores<ApplicationDbContext>();
+
+// Adicionar Stripe
+Stripe.StripeConfiguration.ApiKey = builder.Configuration["Stripe:SecretKey"];
+builder.Services.AddTransient<StripePaymentService>();
 
 
 // Forçar cultura PT-BR ou PT-PT

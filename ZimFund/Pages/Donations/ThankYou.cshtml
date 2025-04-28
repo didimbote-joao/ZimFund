@@ -1,0 +1,9 @@
+﻿@page
+@model ZimFund.Pages.Donations.ThankYouModel
+
+<div class="text-center mt-5">
+    <h1 class="display-4">Obrigado!</h1>
+    <p class="lead">Sua doação para o projeto <strong>@Model.ProjectName</strong> foi recebida com sucesso.</p>
+    <p>Valor doado: <strong>@Model.AmountDoado.ToString("C")</strong></p>
+    <a class="btn btn-primary mt-3" href="/">Voltar para a Página Inicial</a>
+</div>

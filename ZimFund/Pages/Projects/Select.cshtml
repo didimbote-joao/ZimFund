@@ -27,7 +27,12 @@
     
     <p><strong>@Model.Project.CollectedAmount.ToString("C") arrecadados de @Model.Project.GoalAmount.ToString("C")</strong></p>
 
-    <button class="btn donate-btn w-100 my-2">Doar Agora</button>
+    <form method="post" asp-page="/Donations/Checkout">
+        <input type="hidden" name="ProjectId" value="@Model.Project.Id" />
+        <input type="number" name="Amount" step="0.01" placeholder="Valor da Doação" class="form-control my-2" required />
+        <button type="submit" class="btn btn-success w-100">Doar Agora</button>
+    </form>
+
     <button class="btn btn-outline-secondary w-100">Compartilhar</button>
 
     <div class="row mt-4">
