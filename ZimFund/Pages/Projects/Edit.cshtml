@@ -1,0 +1,52 @@
+﻿@page
+@model ZimFund.Pages.Projects.EditModel
+@{
+    ViewData["Title"] = "Editar Campanha";
+}
+
+<h2>Editar Campanha</h2>
+
+<partial name="_ValidationSummary" />
+
+<form method="post" enctype="multipart/form-data">
+    <input type="hidden" asp-for="Project.Id" />
+
+
+    <div class="mb-3">
+        <label asp-for="Project.Title" class="form-label"></label>
+        <input asp-for="Project.Title" class="form-control" />
+        <span asp-validation-for="Project.Title" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Project.Description" class="form-label"></label>
+        <textarea asp-for="Project.Description" class="form-control"></textarea>
+        <span asp-validation-for="Project.Description" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Project.GoalAmount" class="form-label"></label>
+        <input asp-for="Project.GoalAmount" class="form-control" />
+        <span asp-validation-for="Project.GoalAmount" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Project.CategoryId" class="form-label">Categoria</label>
+        <select asp-for="Project.CategoryId" class="form-select" asp-items="Model.CategoryOptions">
+            <option value="">-- Selecione uma categoria --</option>
+        </select>
+        <span asp-validation-for="Project.CategoryId" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="ImageFile" class="form-label">Imagem (deixe vazio para manter a atual)</label>
+        <input asp-for="ImageFile" class="form-control" type="file" />
+    </div>
+
+    <button type="submit" class="btn btn-primary">Salvar</button>
+    <a asp-page="/Index" class="btn btn-secondary">Cancelar</a>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
