@@ -8,8 +8,6 @@ using ZimFund.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
-
-
 // Add services to the container.
 builder.Services.AddRazorPages();
 
@@ -25,7 +23,6 @@ builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.R
 // Adicionar Stripe
 Stripe.StripeConfiguration.ApiKey = builder.Configuration["Stripe:SecretKey"];
 builder.Services.AddTransient<StripePaymentService>();
-
 
 // Forçar cultura PT-BR ou PT-PT
 var cultureInfo = new CultureInfo("pt-BR"); // ou "pt-BR"
@@ -53,5 +50,3 @@ app.UseAuthorization();
 app.MapRazorPages();
 
 app.Run();
-
-
