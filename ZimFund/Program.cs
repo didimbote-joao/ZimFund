@@ -24,6 +24,9 @@ builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.R
 Stripe.StripeConfiguration.ApiKey = builder.Configuration["Stripe:SecretKey"];
 builder.Services.AddTransient<StripePaymentService>();
 
+// Adicionar Envio de email
+builder.Services.AddTransient<EmailService>();
+
 // Forçar cultura PT-BR ou PT-PT
 var cultureInfo = new CultureInfo("pt-BR"); // ou "pt-BR"
 CultureInfo.DefaultThreadCurrentCulture = cultureInfo;
