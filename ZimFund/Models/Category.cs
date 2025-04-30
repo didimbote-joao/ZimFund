@@ -1,4 +1,6 @@
-﻿namespace ZimFund.Models
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+
+namespace ZimFund.Models
 {
     public class Category
     {
@@ -8,7 +10,9 @@
         public DateTime CreatedAt { get; set; } 
         public DateTime UpdatedAt { get; set; }
         public bool IsDeleted { get; set; } = false;
+        [ValidateNever]
         public string UserId { get; set; }
+        [ValidateNever]
         public ApplicationUser User { get; set; }
         public ICollection<Project> Projects { get; set; } = new List<Project>();
     }

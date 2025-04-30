@@ -1,0 +1,23 @@
+﻿@page "{id:int}"
+@model ZimFund.Pages.Categories.EditModel
+@{
+    ViewData["Title"] = "Editar Categoria";
+}
+
+<h2>Editar Categoria</h2>
+
+<form method="post">
+    <div class="form-group">
+        <label asp-for="Category.Name" class="control-label"></label>
+        <input asp-for="Category.Name" class="form-control" />
+        <span asp-validation-for="Category.Name" class="text-danger"></span>
+    </div>
+
+    <input type="hidden" asp-for="Category.Id" />
+    <button type="submit" class="btn btn-primary">Salvar</button>
+    <a asp-page="Index" class="btn btn-secondary">Cancelar</a>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

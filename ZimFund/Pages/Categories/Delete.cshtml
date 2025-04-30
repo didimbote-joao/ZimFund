@@ -1,0 +1,18 @@
+﻿@page "{id:int}"
+@model ZimFund.Pages.Categories.DeleteModel
+@{
+    ViewData["Title"] = "Excluir Categoria";
+}
+
+<h2>Tem certeza que deseja excluir esta categoria?</h2>
+
+<div>
+    <h4>@Model.Category.Name</h4>
+    <p>Criada em: @Model.Category.CreatedAt.ToString("dd/MM/yyyy HH:mm")</p>
+</div>
+
+<form method="post">
+    <input type="hidden" asp-for="Category.Id" />
+    <button type="submit" class="btn btn-danger">Confirmar Exclusão</button>
+    <a asp-page="Index" class="btn btn-secondary">Cancelar</a>
+</form>
