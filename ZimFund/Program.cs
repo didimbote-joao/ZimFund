@@ -27,7 +27,7 @@ builder.Services.AddTransient<StripePaymentService>();
 // Adicionar Envio de email
 builder.Services.AddTransient<EmailService>();
 
-// Forçar cultura PT-BR ou PT-PT
+// Cultura PT-BR ou PT-PT
 var cultureInfo = new CultureInfo("pt-BR"); // ou "pt-BR"
 CultureInfo.DefaultThreadCurrentCulture = cultureInfo;
 CultureInfo.DefaultThreadCurrentUICulture = cultureInfo;

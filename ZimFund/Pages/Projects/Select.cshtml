@@ -42,7 +42,7 @@
                 @foreach (var comment in Model.Project.Comments)
                 {
                     <div class="list-group-item">
-                        <strong>@comment.User.FullName:</strong> @comment.Name
+                        <strong>@comment.User.FullName:</strong> @comment.Content
                     </div>
                 }
             </div>
