@@ -39,6 +39,8 @@
         <div class="col-md-8">
             <h3>Comentários</h3>
             <div class="list-group">
+                <a asp-page="/Comments/Create" asp-route-id="@Model.Project.Id" class="btn btn-sm btn-warning">Comentar</a>
+
                 @foreach (var comment in Model.Project.Comments)
                 {
                     <div class="list-group-item">
