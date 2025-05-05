@@ -1,0 +1,41 @@
+﻿@page
+@model ZimFund.Pages.Projects.IndexModel
+@{
+    ViewData["Title"] = "Lista de Projetos";
+}
+
+<h2>Projetos Ativos</h2>
+
+<a asp-page="/Projects/Create" class="btn btn-success mb-3">Criar Novo Projeto</a>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Título</th>
+            <th>Autor</th>
+            <th>Meta</th>
+            <th>Arrecadado</th>
+            <th>Criado em</th>
+            <th>Atualizado em</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var project in Model.Projects)
+        {
+            <tr>
+                <td>@project.Title</td>
+                <td>@project.User.FullName</td>
+                <td>@project.GoalAmount.ToString("C")</td>
+                <td>@project.CollectedAmount.ToString("C")</td>
+                <td>@project.CreatedAt.ToString("dd/MM/yyyy HH:mm")</td>
+                <td>@project.UpdatedAt.ToString("dd/MM/yyyy HH:mm")</td>
+                <td>
+                    <a asp-page="/Projects/Select" asp-route-id="@project.Id" class="btn btn-info btn-sm">Ver</a>
+                    <a asp-page="/Projects/Edit" asp-route-id="@project.Id" class="btn btn-primary btn-sm">Editar</a>
+                    <a asp-page="/Projects/Delete" asp-route-id="@project.Id" class="btn btn-danger btn-sm">Apagar</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
