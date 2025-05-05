@@ -3,11 +3,10 @@
 @{
     ViewData["Title"] = "Detalhes da Campanha";
 }
+@* Calcular a percentagem arrecadada*@
 @{
     var percentage = Model.Project.GoalAmount > 0 ? (Model.Project.CollectedAmount / Model.Project.GoalAmount) * 100 : 0;
 }
-
-
 
 <div class="container campaign-container">
     <h2>@Model.Project.Title</h2>
@@ -21,9 +20,6 @@
             @percentage.ToString("0")%
         </div>
     </div>
-
-
-
     
     <p><strong>@Model.Project.CollectedAmount.ToString("C") arrecadados de @Model.Project.GoalAmount.ToString("C")</strong></p>
 
@@ -33,14 +29,19 @@
         <button type="submit" class="btn btn-success w-100">Doar Agora</button>
     </form>
 
-    <button class="btn btn-outline-secondary w-100">Compartilhar</button>
+    @* <button class="btn btn-outline-secondary w-100">Compartilhar</button> *@
+
+    @* Verifcar se o usuario logado e' o autor do comentario *@
+    @using System.Security.Claims
+    @{
+        var currentUserId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+    }
 
     <div class="row mt-4">
         <div class="col-md-8">
             <h3>Comentários</h3>
             <div class="list-group">
                 <a asp-page="/Comments/Create" asp-route-id="@Model.Project.Id" class="btn btn-sm btn-warning">Comentar</a>
-
                 @foreach (var comment in Model.Project.Comments.Where(c => !c.IsDeleted))
                 {
                     <div class="list-group-item">
@@ -49,8 +50,11 @@
                                 <strong>@comment.User.FullName:</strong> @comment.Content
                             </div>
                             <div>
-                                <a asp-page="/Comments/Edit" asp-route-id="@comment.Id" class="btn btn-sm btn-primary me-1">Editar</a>
-                                <a asp-page="/Comments/Delete" asp-route-id="@comment.Id" class="btn btn-sm btn-danger">Apagar</a>
+                                @if (comment.UserId == currentUserId)
+                                {
+                                    <a asp-page="/Comments/Edit" asp-route-id="@comment.Id" class="btn btn-sm btn-primary me-1">Editar</a>
+                                    <a asp-page="/Comments/Delete" asp-route-id="@comment.Id" class="btn btn-sm btn-danger">Apagar</a>
+                                }
                             </div>
                         </div>
                     </div>
