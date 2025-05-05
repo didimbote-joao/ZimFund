@@ -8,6 +8,7 @@ namespace ZimFund.Models
         public string Content { get; set; }
         public DateTime CreatedAt { get; set; } 
         public DateTime UpdatedAt { get; set; }
+        public bool IsDeleted { get; set; } = false;
         [ValidateNever]
         public string UserId { get; set; }
         [ValidateNever]

@@ -24,7 +24,7 @@ namespace ZimFund.Pages.Comments
                 .AsNoTracking()
                 .FirstOrDefaultAsync(c => c.Id == id);
 
-            if (Comment == null )
+            if (Comment == null || Comment.IsDeleted)
                 return NotFound();
 
             return Page();
@@ -37,7 +37,7 @@ namespace ZimFund.Pages.Comments
 
             var commentInDb = await _context.Comments.FindAsync(Comment.Id);
 
-            if (commentInDb == null )
+            if (commentInDb == null || commentInDb.IsDeleted)
                 return NotFound();
 
             commentInDb.Content = Comment.Content;
