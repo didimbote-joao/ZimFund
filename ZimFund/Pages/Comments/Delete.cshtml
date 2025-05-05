@@ -1,4 +1,12 @@
-﻿@page
+﻿@page 
 @model ZimFund.Pages.Comments.DeleteModel
-@{
-}
+
+<h2>Confirmar Exclusão</h2>
+
+<p>Você tem certeza que deseja excluir este comentário?</p>
+
+<form method="post">
+    <input type="hidden" asp-for="Comment.Id" />
+    <button type="submit" class="btn btn-danger">Confirmar</button>
+    <a asp-page="/Projects/Select" asp-route-id="@Model.Comment.ProjectId" class="btn btn-secondary">Cancelar</a>
+</form>
