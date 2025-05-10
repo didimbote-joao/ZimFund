@@ -16,8 +16,9 @@ builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlSer
         builder.Configuration.GetConnectionString("DefaultConnection")
     ));
 
-// Adicionar Scaffold do Identity
+// Adicionar Scaffold do Identity e UserRole
 builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = false)
+    .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>();
 
 // Adicionar Stripe
