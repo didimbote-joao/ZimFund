@@ -1,0 +1,61 @@
+﻿@page
+@model ZimFund.Pages.Donations.IndexModel
+
+<h2>Doações</h2>
+
+<form method="get" class="row g-3 mb-4">
+    <div class="col-md-4">
+        <label class="form-label">Projeto</label>
+        <select class="form-select" name="ProjectId">
+            <option value="">Todos</option>
+            @foreach (var project in Model.Projects)
+            {
+                <option value="@project.Id" selected="@(Model.ProjectId == project.Id)">
+                    @project.Title
+                </option>
+            }
+        </select>
+    </div>
+    <div class="col-md-3">
+        <label class="form-label">Data Inicial</label>
+        <input type="date" name="StartDate" class="form-control" value="@(Model.StartDate?.ToString("yyyy-MM-dd"))" />
+    </div>
+    <div class="col-md-3">
+        <label class="form-label">Data Final</label>
+        <input type="date" name="EndDate" class="form-control" value="@(Model.EndDate?.ToString("yyyy-MM-dd"))" />
+    </div>
+    <div class="col-md-2 align-self-end">
+        <button type="submit" class="btn btn-primary w-100">Filtrar</button>
+    </div>
+</form>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Valor</th>
+            <th>Doador</th>
+            <th>Projeto</th>
+            <th>Data</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.Donations.Any())
+        {
+            foreach (var donation in Model.Donations)
+            {
+                <tr>
+                    <td>@donation.Amount.ToString("C")</td>
+                    <td>@donation.User.FullName </td>
+                    <td>@donation.Project.Title</td>
+                    <td>@donation.CreatedAt.ToString("dd/MM/yyyy HH:mm")</td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="4" class="text-center">Nenhuma doação encontrada.</td>
+            </tr>
+        }
+    </tbody>
+</table>
