@@ -4,9 +4,11 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using ZimFund.Data;
 using ZimFund.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ZimFund.Pages.Projects
 {
+    [Authorize(Roles = "admin,organizer")]
     public class EditModel : PageModel
     {
         private readonly ApplicationDbContext _context;
