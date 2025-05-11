@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -6,6 +7,7 @@ using ZimFund.Models;
 
 namespace ZimFund.Pages.Categories
 {
+    [Authorize(Roles = "admin")]
     public class CreateModel : PageModel
     {
         private readonly ApplicationDbContext _context;

@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using ZimFund.Data;
@@ -5,6 +6,7 @@ using ZimFund.Models;
 
 namespace ZimFund.Pages.Categories
 {
+    [Authorize(Roles = "admin")]
     public class IndexModel : PageModel
     {
         private readonly ApplicationDbContext _context;

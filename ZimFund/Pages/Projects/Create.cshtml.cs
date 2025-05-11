@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace ZimFund.Pages.Projects
 {
-    [Authorize] // contidiciona a pagina a apenas usuarios logados
+    [Authorize(Roles = "admin,organizer")] // contidiciona a pagina a apenas usuarios com nivel de acesso
     public class CreateModel : PageModel
     {
         private readonly ApplicationDbContext _context;
