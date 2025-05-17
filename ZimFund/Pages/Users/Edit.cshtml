@@ -1,0 +1,38 @@
+﻿@page "{id}"
+@model ZimFund.Pages.Users.EditModel
+@{
+    ViewData["Title"] = "Editar Usuário";
+}
+
+<h2>Editar Usuário</h2>
+
+<form method="post">
+    <input type="hidden" asp-for="Input.Id" />
+
+    <div class="mb-3">
+        <label asp-for="Input.FullName" class="form-label">Nome completo</label>
+        <input asp-for="Input.FullName" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Input.Email" class="form-label"></label>
+        <input asp-for="Input.Email" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Input.Address" class="form-label">Endereço</label>
+        <input asp-for="Input.Address" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Input.Role" class="form-label">Nível de Acesso</label>
+        <select asp-for="Input.Role" class="form-select">
+            <option value="client">Client</option>
+            <option value="organizer">Organizer</option>
+            <option value="admin">Admin</option>
+        </select>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Salvar</button>
+    <a asp-page="/Users/Index" class="btn btn-secondary">Cancelar</a>
+</form>

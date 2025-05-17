@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using ZimFund.Models;
@@ -18,13 +19,24 @@ namespace ZimFund.Pages.Users
 
         public List<ApplicationUser> Users { get; set; } = new();
 
+        [BindProperty(SupportsGet = true)]
+        public string? Search { get; set; }
+
         public async Task OnGetAsync()
         {
-            Users = await _userManager.Users
+            var query = _userManager.Users
                 .Where(u => !u.IsDeleted)
                 .Include(u => u.Donations)
-                .OrderBy(u => u.FullName)
-                .ToListAsync();
+                .AsQueryable();
+
+            if (!string.IsNullOrWhiteSpace(Search))
+            {
+                query = query.Where(u =>
+                    u.FullName.Contains(Search) ||
+                    u.Email.Contains(Search));
+            }
+
+            Users = await query.OrderBy(u => u.FullName).ToListAsync();
         }
     }
 }
