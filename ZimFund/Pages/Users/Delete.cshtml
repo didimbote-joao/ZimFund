@@ -1,0 +1,25 @@
+﻿@page 
+@model ZimFund.Pages.Users.DeleteModel
+
+
+@if (!ViewData.ModelState.IsValid)
+{
+    <div class="alert alert-danger">
+        @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+        {
+            <p>@error.ErrorMessage</p>
+        }
+    </div>
+}
+
+
+<h3>Tem certeza que deseja excluir este usuário?</h3>
+
+<div class="mb-3">
+    <strong>@Model.UserToDelete.FullName</strong> - @Model.UserToDelete.Email
+</div>
+
+<form method="post">
+    <button type="submit" class="btn btn-danger">Confirmar Exclusão</button>
+    <a asp-page="Index" class="btn btn-secondary">Cancelar</a>
+</form>
