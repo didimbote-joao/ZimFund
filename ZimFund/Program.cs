@@ -50,7 +50,8 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
-app.UseAuthentication();;
+app.UseAuthentication();
+app.UseMiddleware<ZimFund.Middleware.UserStatusMiddleware>();
 
 app.UseAuthorization();
 
