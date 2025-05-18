@@ -57,19 +57,10 @@ namespace ZimFund.Pages.Projects
                 return NotFound();
             }
 
-            // Conversão segura de GoalAmount (suporta vírgula ou ponto)
-            var goalAmountStr = Request.Form["Project.GoalAmount"].ToString();
-            if (!decimal.TryParse(goalAmountStr.Replace(',', '.'), System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.InvariantCulture, out var parsedAmount))
-            {
-                ModelState.AddModelError("Project.GoalAmount", "Valor inválido para a meta de arrecadação.");
-                await LoadCategoriesAsync();
-                return Page();
-            }
-
             // Atualiza campos
             project.Title = Project.Title;
             project.Description = Project.Description;
-            project.GoalAmount = parsedAmount;
+            project.GoalAmount = decimal.Parse(Project.GoalAmount.ToString().Replace(",", ".")); // Corrige a vírgula
             project.CategoryId = Project.CategoryId;
             project.UpdatedAt = DateTime.UtcNow;
 
