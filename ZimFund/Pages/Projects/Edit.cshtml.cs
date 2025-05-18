@@ -57,10 +57,19 @@ namespace ZimFund.Pages.Projects
                 return NotFound();
             }
 
+            // Conversão segura de GoalAmount (suporta vírgula ou ponto)
+            var goalAmountStr = Request.Form["Project.GoalAmount"].ToString();
+            if (!decimal.TryParse(goalAmountStr.Replace(',', '.'), System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.InvariantCulture, out var parsedAmount))
+            {
+                ModelState.AddModelError("Project.GoalAmount", "Valor inválido para a meta de arrecadação.");
+                await LoadCategoriesAsync();
+                return Page();
+            }
+
             // Atualiza campos
             project.Title = Project.Title;
             project.Description = Project.Description;
-            project.GoalAmount = decimal.Parse(Project.GoalAmount.ToString().Replace(",", ".")); // Corrige a vírgula
+            project.GoalAmount = parsedAmount;
             project.CategoryId = Project.CategoryId;
             project.UpdatedAt = DateTime.UtcNow;
 
@@ -85,8 +94,6 @@ namespace ZimFund.Pages.Projects
                     return Page();
                 }
 
-                // Opcional: excluir imagem antiga aqui se quiser
-
                 // Salva a nova imagem
                 var uploadsFolder = Path.Combine(_environment.WebRootPath, "images");
                 var uniqueFileName = $"{Guid.NewGuid()}{extension}";
@@ -101,9 +108,9 @@ namespace ZimFund.Pages.Projects
             }
 
             await _context.SaveChangesAsync();
-            //return RedirectToPage("/Projects/List");
             return RedirectToPage("/Index");
         }
+
 
         private async Task LoadCategoriesAsync()
         {
