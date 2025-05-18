@@ -15,7 +15,7 @@ namespace ZimFund.Services
                     {
                         PriceData = new SessionLineItemPriceDataOptions
                         {
-                            Currency = "usd",
+                            Currency = "aoa",
                             UnitAmount = (long)(amount * 100), // Stripe trabalha em centavos
                             ProductData = new SessionLineItemPriceDataProductDataOptions
                             {

@@ -28,10 +28,13 @@ builder.Services.AddTransient<StripePaymentService>();
 // Adicionar Envio de email
 builder.Services.AddTransient<EmailService>();
 
-// Cultura PT-BR ou PT-PT
-var cultureInfo = new CultureInfo("pt-BR"); // ou "pt-BR"
+// Define cultura
+var cultureInfo = new CultureInfo("pt-AO");
+cultureInfo.NumberFormat.CurrencySymbol = "Kz";
+
 CultureInfo.DefaultThreadCurrentCulture = cultureInfo;
 CultureInfo.DefaultThreadCurrentUICulture = cultureInfo;
+
 
 var app = builder.Build();
 
