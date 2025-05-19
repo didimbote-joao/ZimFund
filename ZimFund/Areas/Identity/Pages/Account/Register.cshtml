@@ -1,79 +1,65 @@
 ﻿@page
 @model RegisterModel
 @{
-    ViewData["Title"] = "Register";
+    ViewData["Title"] = "Cadastro";
 }
 
-<h1>@ViewData["Title"]</h1>
 
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-lg-6 mx-auto rounded border p-3">
         <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post">
-            <h2>Create a new account.</h2>
+            <h2>Criar nova conta.</h2>
             <hr />
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-floating">
-                <input asp-for="Input.FullName" class="form-control" autocomplete="Nome completo" aria-required="true" />
-                <label asp-for="Input.FullName"></label>
-                <span asp-validation-for="Input.FullName" class="text-danger"></span>
+            <div class="row mb-3">
+                <label class="col-sm-4 col-form-label">Nome completo</label>
+                <div class="col-sm-8">
+                    <input class="form-control" asp-for="Input.FullName" />
+                    <span asp-validation-for="Input.FullName" class="text-danger"></span>
+                </div>
             </div>
-            <div class="form-floating">
-                <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" />
-                <label asp-for="Input.Email"></label>
-                <span asp-validation-for="Input.Email" class="text-danger"></span>
+            <div class="row mb-3">
+                <label class="col-sm-4 col-form-label">Email</label>
+                <div class="col-sm-8">
+                    <input class="form-control" asp-for="Input.Email" />
+                    <span asp-validation-for="Input.Email" class="text-danger"></span>
+                </div>
             </div>
-            <div class="form-floating">
-                <input asp-for="Input.PhoneNumber" class="form-control" autocomplete="Contacto" aria-required="true" />
-                <label asp-for="Input.PhoneNumber"></label>
-                <span asp-validation-for="Input.PhoneNumber" class="text-danger"></span>
+            <div class="row mb-3">
+                <label class="col-sm-4 col-form-label">Contacto</label>
+                <div class="col-sm-8">
+                    <input class="form-control" asp-for="Input.PhoneNumber" />
+                    <span asp-validation-for="Input.PhoneNumber" class="text-danger"></span>
+                </div>
             </div>
-            <div class="form-floating">
-                <input asp-for="Input.Address" class="form-control" autocomplete="Endereço" aria-required="true" />
-                <label asp-for="Input.Address"></label>
-                <span asp-validation-for="Input.Address" class="text-danger"></span>
+            <div class="row mb-3">
+                <label class="col-sm-4 col-form-label">Endereço</label>
+                <div class="col-sm-8">
+                    <input class="form-control" asp-for="Input.Address" />
+                    <span asp-validation-for="Input.Address" class="text-danger"></span>
+                </div>
             </div>
-            <div class="form-floating">
-                <input asp-for="Input.Password" class="form-control" autocomplete="new-password" aria-required="true" />
-                <label asp-for="Input.Password"></label>
-                <span asp-validation-for="Input.Password" class="text-danger"></span>
+            <div class="row mb-3">
+                <label class="col-sm-4 col-form-label">Senha</label>
+                <div class="col-sm-8">
+                    <input class="form-control" asp-for="Input.Password" />
+                    <span asp-validation-for="Input.Password" class="text-danger"></span>
+                </div>
             </div>
-            <div class="form-floating">
-                <input asp-for="Input.ConfirmPassword" class="form-control" autocomplete="new-password" aria-required="true" />
-                <label asp-for="Input.ConfirmPassword"></label>
-                <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+            <div class="row mb-3">
+                <label class="col-sm-4 col-form-label">Confirmar senha</label>
+                <div class="col-sm-8">
+                    <input class="form-control" asp-for="Input.ConfirmPassword" />
+                    <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+                </div>
             </div>
-            <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-primary">Register</button>
+            <div class="row mb-3">
+                <div class="col-sm-8 offset-sm-4 d-flex gap-2">
+                    <button type="submit" class="btn btn-primary">Register</button>
+                    <a asp-page="/Index" class="btn btn-outline-primary">Cancel</a>
+                </div>
+            </div>
         </form>
-    </div>
-    <div class="col-md-6 col-md-offset-2">
-        <section>
-            <h3>Use another service to register.</h3>
-            <hr />
-            @{
-                if ((Model.ExternalLogins?.Count ?? 0) == 0)
-                {
-                    <div>
-                        <p>
-                            There are no external authentication services configured. See this <a href="https://go.microsoft.com/fwlink/?LinkID=532715">article
-                            about setting up this ASP.NET application to support logging in via external services</a>.
-                        </p>
-                    </div>
-                }
-                else
-                {
-                    <form id="external-account" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="form-horizontal">
-                        <div>
-                            <p>
-                                @foreach (var provider in Model.ExternalLogins!)
-                                {
-                                    <button type="submit" class="btn btn-primary" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account">@provider.DisplayName</button>
-                                }
-                            </p>
-                        </div>
-                    </form>
-                }
-            }
-        </section>
     </div>
 </div>
 
