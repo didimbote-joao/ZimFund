@@ -1,0 +1,35 @@
+﻿@page
+@model ZimFund.Pages.Donations.SelectModel
+
+@{
+    ViewData["Title"] = "Minhas Doações";
+}
+
+<h3>Minhas Doações</h3>
+
+@if (!Model.Donations.Any())
+{
+    <p>Você ainda não fez nenhuma doação.</p>
+}
+else
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Campanha</th>
+                <th>Valor</th>
+                <th>Data</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var donation in Model.Donations)
+            {
+                <tr>
+                    <td>@donation.Project.Title</td>
+                    <td>@donation.Amount.ToString("C")</td>
+                    <td>@donation.CreatedAt.ToString("dd/MM/yyyy")</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
