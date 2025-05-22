@@ -74,7 +74,7 @@ namespace ZimFund.Areas.Identity.Pages.Account.Manage
             /// </summary>
             [DataType(DataType.Password)]
             [Display(Name = "Confirm new password")]
-            [Compare("NewPassword", ErrorMessage = "The new password and confirmation password do not match.")]
+            [Compare("NewPassword", ErrorMessage = "A nova senha e a senha de confirmação não correspondem.")]
             public string ConfirmPassword { get; set; }
         }
 
