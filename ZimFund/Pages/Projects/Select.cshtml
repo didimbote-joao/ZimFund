@@ -9,8 +9,11 @@
 }
 
 <div class="container campaign-container">
-    <h2>@Model.Project.Title</h2>
-    <img src="@Model.Project.Image" alt="@Model.Project.Title" class="campaign-img" height="400" width="600">
+    <div class="text-center mb-4">
+        <h2>@Model.Project.Title</h2>
+        <br />
+        <img src="@Model.Project.Image" alt="@Model.Project.Title" class="campaign-img img-fluid" style="max-width: 100%; height: auto;">
+    </div>
     <p><strong>Organizador:</strong> @Model.Project.User.FullName</p> 
     <p>@Model.Project.Description</p>
     <div class="progress" style="height: 20px; background-color: #e9ecef;">
