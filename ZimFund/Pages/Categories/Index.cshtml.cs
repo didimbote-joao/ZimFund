@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using ZimFund.Data;
@@ -17,13 +18,21 @@ namespace ZimFund.Pages.Categories
         }
 
         public IList<Category> Categories { get; set; } = new List<Category>();
+        [BindProperty(SupportsGet = true)]
+        public string? SearchTerm { get; set; }
 
         public async Task OnGetAsync()
         {
-            Categories = await _context.Categories
+            var query = _context.Categories
                 .Where(c => !c.IsDeleted)
                 .Include(c => c.User)
-                .ToListAsync();
+                .AsQueryable();
+
+            if (!string.IsNullOrWhiteSpace(SearchTerm))
+            {
+                query = query.Where(c => c.Name.Contains(SearchTerm));
+            }
+            Categories = await query.ToListAsync();
         }
     }
 }

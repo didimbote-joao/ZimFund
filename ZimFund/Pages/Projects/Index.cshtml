@@ -3,12 +3,12 @@
 
 <h2>Projetos</h2>
 
-<a asp-page="/Projects/Create" class="btn btn-primary mb-3">Novo Projeto</a>
+<a asp-page="/Projects/Create" class="btn btn-primary mb-3"><i class="bi bi-plus-square"></i> Novo Projeto</a>
 
 <form method="get" class="mb-4">
     <div class="input-group">
-        <input type="text" name="SearchTerm" class="form-control" placeholder="Buscar por título ou descrição..." value="@Model.SearchTerm" />
-        <button type="submit" class="btn btn-outline-secondary">Buscar</button>
+        <input type="text" name="SearchTerm" class="form-control" placeholder="Buscar por título..." value="@Model.SearchTerm" />
+        <button type="submit" class="btn btn-outline-secondary"><i class="bi bi-search"></i> Buscar</button>
     </div>
 </form>
 
@@ -18,11 +18,12 @@
         <thead>
             <tr>
                 <th>Título</th>
-                <th>Descrição</th>
+               @*  <th>Descrição</th> *@
                 <th>Categoria</th>
                 <th>Autor</th>
-                <th>Criado em</th>
-                <th>Atualizado em</th>
+                <th>Criado</th>
+                <th>Atualizado</th>
+                <th>Completa</th>
                 <th>Ações</th>
             </tr>
         </thead>
@@ -31,26 +32,32 @@
             {
                 <tr>
                     <td>@project.Title</td>
-                    <td>@project.Description</td>
+                    @* <td>@project.Description</td> *@
                     <td>@project.Category.Name</td>
                     <td>@project.User.FullName</td>
-                    <td>@project.CreatedAt.ToString("dd/MM/yyyy HH:mm")</td>
-                    <td>@project.UpdatedAt.ToString("dd/MM/yyyy HH:mm")</td>
+                    <td>@project.CreatedAt.ToString("dd/MM/yyyy")</td>
+                    <td>@project.UpdatedAt.ToString("dd/MM/yyyy")</td>
+                    <td>@(project.IsCompleted ? "Sim" : "Não")</td> 
                     <td>
-                        <a asp-page="/Projects/Select" asp-route-id="@project.Id" class="btn btn-sm btn-info">Ver</a>
+                        <a asp-page="/Projects/Select" asp-route-id="@project.Id" class="btn btn-sm btn-info"><i class="bi bi-eye"></i></a>
 
                         @if (User.IsInRole("admin"))
                         {
-                            <a asp-page="/Projects/Edit" asp-route-id="@project.Id" class="btn btn-sm btn-warning">Editar</a>
-                            <a asp-page="/Projects/Delete" asp-route-id="@project.Id" class="btn btn-sm btn-danger">Excluir</a>
+                            <a asp-page="/Projects/Edit" asp-route-id="@project.Id" class="btn btn-sm btn-warning">
+                                <i class="bi bi-pencil-square"></i>
+                            </a>
+                            <a asp-page="/Projects/Delete" asp-route-id="@project.Id" class="btn btn-sm btn-danger">
+                                <i class="bi bi-trash"></i>
+                            </a>
                         }
                     </td>
                 </tr>
             }
         </tbody>
+
     </table>
 }
 else
 {
-    <p>Nenhum projeto encontrado.</p>
+    <p>Nenhuma campanha encontrada.</p>
 }

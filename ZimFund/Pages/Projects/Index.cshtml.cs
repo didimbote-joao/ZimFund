@@ -55,7 +55,7 @@ namespace ZimFund.Pages.Projects
 
             if (!string.IsNullOrWhiteSpace(SearchTerm))
             {
-                query = query.Where(p => p.Title.Contains(SearchTerm) || p.Description.Contains(SearchTerm));
+                query = query.Where(p => p.Title.Contains(SearchTerm));
             }
 
             Projects = await query.ToListAsync();
