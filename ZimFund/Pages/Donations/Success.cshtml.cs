@@ -38,7 +38,7 @@ namespace ZimFund.Pages.Donations
             // Verificar se o usuário está logado
             var userId = User.Identity.IsAuthenticated
                 ? _userManager.GetUserId(User)
-                : "deea36ba-1f53-497f-ad32-ecaada12ae51"; // ID anônimo
+                : "69d4ceb3-2779-47e7-ac85-658e143d03ee"; // ID anônimo
 
             var donation = new Donation
             {

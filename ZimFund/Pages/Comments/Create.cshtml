@@ -8,7 +8,8 @@
     <input type="hidden" asp-for="Comment.ProjectId" value="@Model.Id" />
 
     <div class="form-group">
-        <label asp-for="Comment.Content"></label>
+        <label asp-for="Comment.Content">Comentário</label>
+        <br />
         <textarea asp-for="Comment.Content" class="form-control"></textarea>
     </div>
     @* <input type="hidden" asp-for="Comment.ProjectId" /> *@
