@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using System.ComponentModel.DataAnnotations;
 
 namespace ZimFund.Models
 {
@@ -6,6 +7,7 @@ namespace ZimFund.Models
     {
        
         public int Id { get; set; }
+        [Required(ErrorMessage = "A categoria é obrigatória")]
         public string Name { get; set; }
         public DateTime CreatedAt { get; set; } 
         public DateTime UpdatedAt { get; set; }

@@ -10,19 +10,19 @@
 
 <form method="post" enctype="multipart/form-data">
     <div class="mb-3">
-        <label asp-for="Project.Title" class="form-label"></label>
+        <label asp-for="Project.Title" class="form-label">Título</label>
         <input asp-for="Project.Title" class="form-control" />
         <span asp-validation-for="Project.Title" class="text-danger"></span>
     </div>
 
     <div class="mb-3">
-        <label asp-for="Project.Description" class="form-label"></label>
+        <label asp-for="Project.Description" class="form-label">Descrição</label>
         <textarea asp-for="Project.Description" class="form-control"></textarea>
         <span asp-validation-for="Project.Description" class="text-danger"></span>
     </div>
 
     <div class="mb-3">
-        <label asp-for="Project.GoalAmount" class="form-label"></label>
+        <label asp-for="Project.GoalAmount" class="form-label">Valor pretendido</label>
         <input asp-for="Project.GoalAmount" class="form-control" />
         <span asp-validation-for="Project.GoalAmount" class="text-danger"></span>
     </div>
@@ -41,9 +41,10 @@
     </div>
 
     <button type="submit" class="btn btn-success">Criar</button>
-    <a asp-page="/Index" class="btn btn-secondary">Cancelar</a>
+    <a asp-page="Index" class="btn btn-secondary">Cancelar</a>
 </form>
 
-@section Scripts {
+@* @section Scripts {
     <partial name="_ValidationScriptsPartial" />
 }
+ *@

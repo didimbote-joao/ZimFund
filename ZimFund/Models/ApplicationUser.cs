@@ -5,7 +5,9 @@ namespace ZimFund.Models
 {
     public class ApplicationUser : IdentityUser
     {
+        [Required(ErrorMessage = "O nome completo é obrigatória")]
         public string FullName { get; set; } = "";
+        [Required(ErrorMessage = "O endereço é obrigatório")]
         public string Address { get; set; } = "";
         public bool IsDeleted { get; set; } = false;
         public DateTime CreatedAt { get; set; } 

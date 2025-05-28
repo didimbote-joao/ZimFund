@@ -1,10 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using System.ComponentModel.DataAnnotations;
 
 namespace ZimFund.Models
 {
     public class Comment
     {
         public int Id { get; set; }
+        [Required(ErrorMessage = "O comentário é obrigatório")]
         public string Content { get; set; }
         public DateTime CreatedAt { get; set; } 
         public DateTime UpdatedAt { get; set; }
