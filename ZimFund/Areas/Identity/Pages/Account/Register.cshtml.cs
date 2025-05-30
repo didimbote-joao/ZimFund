@@ -93,7 +93,7 @@ namespace ZimFund.Areas.Identity.Pages.Account
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
             [Required(ErrorMessage = "A senha é obrigatória")]
-            [StringLength(100, ErrorMessage = "A senha deve ter pelo menos {2} e no máximo {1} caracteres.", MinimumLength = 6)]
+            [StringLength(100, ErrorMessage = "A senha deve ter pelo menos {2} e no máximo {1} caracteres.", MinimumLength = 3)]
             [DataType(DataType.Password)]
             //[Display(Name = "Password")]
             public string Password { get; set; }
