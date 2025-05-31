@@ -1,39 +1,59 @@
-﻿using Stripe.Checkout;
+﻿using Stripe;
+using Stripe.Checkout;
 
 namespace ZimFund.Services
 {
     public class StripePaymentService
     {
+        private readonly ILogger<StripePaymentService> _logger;
+
+        public StripePaymentService(ILogger<StripePaymentService> logger)
+        {
+            _logger = logger;
+        }
+
         public async Task<string> CreateCheckoutSessionAsync(decimal amount, string projectName, string successUrl, string cancelUrl)
         {
-            var options = new SessionCreateOptions
+            try
             {
-                PaymentMethodTypes = new List<string> { "card" },
-                LineItems = new List<SessionLineItemOptions>
+                var options = new SessionCreateOptions
                 {
-                    new SessionLineItemOptions
+                    PaymentMethodTypes = new List<string> { "card" },
+                    LineItems = new List<SessionLineItemOptions>
                     {
-                        PriceData = new SessionLineItemPriceDataOptions
+                        new SessionLineItemOptions
                         {
-                            Currency = "aoa",
-                            UnitAmount = (long)(amount * 100), // Stripe trabalha em centavos
-                            ProductData = new SessionLineItemPriceDataProductDataOptions
+                            PriceData = new SessionLineItemPriceDataOptions
                             {
-                                Name = projectName,
+                                Currency = "aoa",
+                                UnitAmount = (long)(amount * 100),
+                                ProductData = new SessionLineItemPriceDataProductDataOptions
+                                {
+                                    Name = projectName,
+                                },
                             },
+                            Quantity = 1,
                         },
-                        Quantity = 1,
                     },
-                },
-                Mode = "payment",
-                SuccessUrl = successUrl,
-                CancelUrl = cancelUrl,
-            };
+                    Mode = "payment",
+                    SuccessUrl = successUrl,
+                    CancelUrl = cancelUrl,
+                };
 
-            var service = new SessionService();
-            var session = await service.CreateAsync(options);
-
-            return session.Url; // Este será o link para redirecionar o usuário
+                var service = new SessionService();
+                var session = await service.CreateAsync(options);
+                return session.Url;
+            }
+            catch (HttpRequestException ex)
+            {
+                _logger.LogError(ex, "Erro de conexão com o Stripe.");
+                throw new ApplicationException("Não foi possível conectar-se ao serviço de pagamento. Verifique sua conexão com a internet.");
+            }
+            catch (StripeException ex)
+            {
+                _logger.LogError(ex, "Erro do Stripe: {Message}", ex.Message);
+                throw new ApplicationException("Ocorreu um erro no serviço de pagamento. Tente novamente mais tarde.");
+            }
         }
     }
 }

@@ -28,6 +28,13 @@
 
     @if (percentage < 100)
     {
+        @if (TempData["StripeError"] != null)
+        {
+            <div class="alert alert-danger text-center">
+                @TempData["StripeError"]
+            </div>
+        }
+
         <form method="post" asp-page="/Donations/Checkout">
             <input type="hidden" name="ProjectId" value="@Model.Project.Id" />
             <input type="number" name="Amount" step="0.01" placeholder="Valor da Doação" class="form-control my-2" required />
