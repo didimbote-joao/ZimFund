@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace ZimFund.Pages.Projects
 {
-    [Authorize(Roles = "admin,organizer")]
+    [Authorize(Roles = "admin")]
     public class EditModel : PageModel
     {
         private readonly ApplicationDbContext _context;

@@ -7,7 +7,7 @@ using ZimFund.Models;
 
 namespace ZimFund.Pages.Projects
 {
-    [Authorize(Roles = "admin,organizer")]
+    [Authorize(Roles = "admin")]
     public class DeleteModel : PageModel
     {
         private readonly ApplicationDbContext _context;

@@ -26,11 +26,23 @@
     
     <p><strong>@Model.Project.CollectedAmount.ToString("C") arrecadados de @Model.Project.GoalAmount.ToString("C")</strong></p>
 
-    <form method="post" asp-page="/Donations/Checkout">
-        <input type="hidden" name="ProjectId" value="@Model.Project.Id" />
-        <input type="number" name="Amount" step="0.01" placeholder="Valor da Doação" class="form-control my-2" required />
-        <button type="submit" class="btn btn-success w-100"><i class="bi bi-cash"></i> Doar Agora</button>
-    </form>
+    @if (percentage < 100)
+    {
+        <form method="post" asp-page="/Donations/Checkout">
+            <input type="hidden" name="ProjectId" value="@Model.Project.Id" />
+            <input type="number" name="Amount" step="0.01" placeholder="Valor da Doação" class="form-control my-2" required />
+            <button type="submit" class="btn btn-success w-100">
+                <i class="bi bi-cash"></i> Doar Agora
+            </button>
+        </form>
+    }
+    else
+    {
+        <div class="alert alert-info text-center mt-2">
+            Esta campanha já atingiu 100% da sua meta de arrecadação. <br />
+            Muito obrigado pelo apoio!
+        </div>
+    }
 
     @* <button class="btn btn-outline-secondary w-100">Compartilhar</button> *@
 
