@@ -1,0 +1,50 @@
+﻿@page
+@model ZimFund.Pages.Comments.IndexModel
+@{
+    ViewData["Title"] = "Listagem de Comentários";
+}
+
+<h2>Comentários</h2>
+
+<form method="get" class="row g-3 mb-4">
+    <div class="col-md-4">
+        <input type="text" name="UserFilter" value="@Model.UserFilter" class="form-control" placeholder="Filtrar por nome do usuário" />
+    </div>
+    <div class="col-md-4">
+        <input type="text" name="ProjectFilter" value="@Model.ProjectFilter" class="form-control" placeholder="Filtrar por título do projeto" />
+    </div>
+    <div class="col-md-4">
+        <button type="submit" class="btn btn-primary">Filtrar</button>
+    </div>
+</form>
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Usuário</th>
+            <th>Projeto</th>
+            <th>Comentário</th>
+            <th>Data</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.Comments.Any())
+        {
+            @foreach (var comment in Model.Comments)
+            {
+                <tr>
+                    <td>@comment.User.FullName</td>
+                    <td>@comment.Project.Title</td>
+                    <td>@comment.Content</td>
+                    <td>@comment.CreatedAt.ToString("dd/MM/yyyy HH:mm")</td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="4" class="text-center">Nenhum comentário encontrado.</td>
+            </tr>
+        }
+    </tbody>
+</table>
