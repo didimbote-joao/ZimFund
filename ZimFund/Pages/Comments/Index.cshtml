@@ -25,6 +25,7 @@
             <th>Projeto</th>
             <th>Comentário</th>
             <th>Data</th>
+            <th>Ações</th>
         </tr>
     </thead>
     <tbody>
@@ -37,6 +38,14 @@
                     <td>@comment.Project.Title</td>
                     <td>@comment.Content</td>
                     <td>@comment.CreatedAt.ToString("dd/MM/yyyy HH:mm")</td>
+                    <td>
+                        <a asp-page="Edit" asp-route-id="@comment.Id" class="btn btn-sm btn-warning">
+                            <i class="bi bi-pencil-square"></i>
+                        </a>
+                        <a asp-page="Delete" asp-route-id="@comment.Id" class="btn btn-sm btn-danger">
+                            <i class="bi bi-trash"></i>
+                        </a>
+                    </td>
                 </tr>
             }
         }

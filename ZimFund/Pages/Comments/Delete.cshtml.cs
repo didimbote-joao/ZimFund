@@ -44,7 +44,13 @@ namespace ZimFund.Pages.Comments
 
             await _context.SaveChangesAsync();
 
-            return RedirectToPage("/Projects/Select", new { id = commentInDb.ProjectId });
+            // Redirecionamento com base na role
+            if (User.IsInRole("admin"))
+            {
+                return RedirectToPage("Index"); // Lista geral de comentários
+            }
+
+            return RedirectToPage("/Projects/Select", new { id = commentInDb.ProjectId }); // Página da campanha
         }
     }
 }

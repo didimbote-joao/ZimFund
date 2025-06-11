@@ -48,7 +48,7 @@ namespace ZimFund.Pages.Projects
             _context.Projects.Update(project);
             await _context.SaveChangesAsync();
 
-            return RedirectToPage("/Index");
+            return RedirectToPage("Index");
         }
     }
 }

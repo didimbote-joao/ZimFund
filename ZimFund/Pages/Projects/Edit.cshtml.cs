@@ -60,7 +60,7 @@ namespace ZimFund.Pages.Projects
             // Atualiza campos
             project.Title = Project.Title;
             project.Description = Project.Description;
-            project.GoalAmount = decimal.Parse(Project.GoalAmount.ToString().Replace(",", ".")); // Corrige a vírgula
+            project.GoalAmount = Project.GoalAmount;
             project.CategoryId = Project.CategoryId;
             project.UpdatedAt = DateTime.UtcNow;
 
@@ -99,7 +99,7 @@ namespace ZimFund.Pages.Projects
             }
 
             await _context.SaveChangesAsync();
-            return RedirectToPage("/Index");
+            return RedirectToPage("Index");
         }
 
 

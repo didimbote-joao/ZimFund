@@ -1,5 +1,6 @@
 ﻿@page "{id:int}"
 @model ZimFund.Pages.Comments.EditModel
+@using Microsoft.AspNetCore.Identity
 
 <h2>Editar Comentário</h2>
 
@@ -13,4 +14,13 @@
     </div>
 
     <button type="submit" class="btn btn-primary">Salvar alterações</button>
+
+    @if (User.IsInRole("admin"))
+    {
+        <a asp-page="Index" class="btn btn-secondary">Cancelar</a>
+    }
+    else
+    {
+        <a asp-page="/Projects/Select" asp-route-id="@Model.Comment.ProjectId" class="btn btn-secondary">Cancelar</a>
+    }
 </form>
