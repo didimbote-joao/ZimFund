@@ -12,6 +12,7 @@ namespace ZimFund.Models
         [Required(ErrorMessage = "A descrição é obrigatória")]
         public string Description { get; set; }
         [Required(ErrorMessage = "O valor é obrigatório")]
+        [Range(0.01, double.MaxValue, ErrorMessage = "O valor deve ser maior que zero")]
         [Precision(18, 2)]
         public decimal GoalAmount { get; set; }
         [Precision(18, 2)]
