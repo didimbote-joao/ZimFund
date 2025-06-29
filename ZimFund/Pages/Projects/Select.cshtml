@@ -3,9 +3,11 @@
 @{
     ViewData["Title"] = "Detalhes da Campanha";
 }
-@* Calcular a percentagem arrecadada*@
+
 @{
-    var percentage = Model.Project.GoalAmount > 0 ? (Model.Project.CollectedAmount / Model.Project.GoalAmount) * 100 : 0;
+    var percentage = Model.Project.GoalAmount > 0
+        ? (Model.Project.CollectedAmount / Model.Project.GoalAmount) * 100
+        : 0;
 }
 
 <div class="container campaign-container">
@@ -14,8 +16,10 @@
         <br />
         <img src="@Model.Project.Image" alt="@Model.Project.Title" class="campaign-img img-fluid" style="max-width: 100%; height: auto;">
     </div>
-    <p><strong>Organizador:</strong> @Model.Project.User.FullName</p> 
+
+    <p><strong>Organizador:</strong> @Model.Project.User.FullName</p>
     <p>@Model.Project.Description</p>
+
     <div class="progress" style="height: 20px; background-color: #e9ecef;">
         <div class="progress-bar bg-success" role="progressbar"
              style="width: @percentage.ToString("0")%;"
@@ -23,7 +27,7 @@
             @percentage.ToString("0")%
         </div>
     </div>
-    
+
     <p><strong>@Model.Project.CollectedAmount.ToString("C") arrecadados de @Model.Project.GoalAmount.ToString("C")</strong></p>
 
     @if (percentage < 100)
@@ -37,7 +41,14 @@
 
         <form method="post" asp-page="/Donations/Checkout">
             <input type="hidden" name="ProjectId" value="@Model.Project.Id" />
-            <input type="number" name="Amount" step="0.01" placeholder="Valor da Doação" class="form-control my-2" required />
+            <input type="number" name="Amount" id="amountInput" step="1" min="83" max="999999"
+                   placeholder="Valor da Doação (somente número entre 83 e 999999 AOA)"
+                   class="form-control my-2" required />
+
+            @* <span class="text-danger" id="amountError" style="display:none;">
+                Somente números inteiros são permitidos.
+            </span> *@
+
             <button type="submit" class="btn btn-success w-100">
                 <i class="bi bi-cash"></i> Doar Agora
             </button>
@@ -51,9 +62,6 @@
         </div>
     }
 
-    @* <button class="btn btn-outline-secondary w-100">Compartilhar</button> *@
-
-    @* Verifcar se o usuario logado e' o autor do comentario *@
     @using System.Security.Claims
     @{
         var currentUserId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
@@ -67,7 +75,9 @@
                 {
                     <a asp-page="/Comments/Create" asp-route-id="@Model.Project.Id" class="btn btn-sm btn-warning">Comentar</a>
                 }
-                @if(Model.Project.Comments.Any()){
+
+                @if (Model.Project.Comments.Any())
+                {
                     @foreach (var comment in Model.Project.Comments.Where(c => !c.IsDeleted))
                     {
                         <div class="list-group-item">
@@ -88,7 +98,6 @@
                                             <i class="bi bi-trash"></i>
                                         </a>
                                     }
-
                                 </div>
                             </div>
                         </div>
@@ -98,7 +107,6 @@
                 {
                     <div class="list-group-item text-muted">Nenhum comentário</div>
                 }
-                
             </div>
         </div>
 
@@ -113,3 +121,27 @@
         </div>
     </div>
 </div>
+
+@section Scripts {
+    <script>
+        const input = document.getElementById("amountInput");
+        const error = document.getElementById("amountError");
+
+        input.addEventListener("input", function () {
+            const value = parseInt(this.value);
+
+            if (this.value.includes(",") || this.value.includes(".") || value < 83 || value > 999999) {
+                this.value = this.value.replace(/[.,]/g, "");
+                error.style.display = "block";
+            } else {
+                error.style.display = "none";
+            }
+        });
+
+        input.addEventListener("keypress", function (e) {
+            if (e.key === "," || e.key === ".") {
+                e.preventDefault();
+            }
+        });
+    </script>
+}

@@ -26,7 +26,7 @@
 
     <div class="mb-3">
         <label asp-for="Project.GoalAmount" class="form-label"></label>
-        <input asp-for="Project.GoalAmount" class="form-control" />
+        <input class="form-control" name="Project.GoalAmount" value="@Model.Project.GoalAmount.ToString("N2")" />
         <span asp-validation-for="Project.GoalAmount" class="text-danger"></span>
     </div>
 
